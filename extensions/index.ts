@@ -306,6 +306,7 @@ export default function piMonitorExtension(pi: ExtensionAPI) {
 	}
 
 	async function confirmShellMonitorStart(ctx: ExtensionContext, description: string, command: string) {
+		if (process.env.PI_MONITOR_SKIP_CONFIRM === "1") return true;
 		if (!ctx.hasUI) return process.env.PI_MONITOR_ALLOW_HEADLESS_SHELL === "1";
 		return ctx.ui.confirm(
 			"Start background shell monitor?",
