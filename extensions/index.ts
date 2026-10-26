@@ -306,8 +306,8 @@ export default function piMonitorExtension(pi: ExtensionAPI) {
 	}
 
 	async function confirmShellMonitorStart(ctx: ExtensionContext, description: string, command: string) {
-		if (process.env.PI_MONITOR_SKIP_CONFIRM === "1") return true;
 		if (!ctx.hasUI) return process.env.PI_MONITOR_ALLOW_HEADLESS_SHELL === "1";
+		if (process.env.PI_MONITOR_REQUIRE_CONFIRM !== "1") return true;
 		return ctx.ui.confirm(
 			"Start background shell monitor?",
 			`Description: ${description}\n\nCommand:\n${command}\n\nThis command runs with your user permissions until stopped, timed out, or the session ends.`,
